@@ -1,0 +1,70 @@
+{
+  "entities": {
+    "Program": {
+      "title": "Audit Program",
+      "description": "A single audit project with multiple activities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "title": { "type": "string" },
+        "pic": { "type": "string" },
+        "site": { "type": "string" },
+        "docLink": { "type": "string" },
+        "finalReport": {
+          "type": "object",
+          "properties": {
+            "link": { "type": "string" },
+            "submittedAt": { "type": "string" }
+          },
+          "required": ["link", "submittedAt"]
+        },
+        "activities": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "pic", "site", "activities"]
+    },
+    "AccuracyItem": {
+      "title": "Accuracy Data Item",
+      "description": "A single record for audit project accuracy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "folderId": { "type": "string" },
+        "projectName": { "type": "string" },
+        "site": { "type": "string" },
+        "planStart": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "evidence": { "type": "string" }
+      },
+      "required": ["id", "projectName", "site", "planStart", "completed"]
+    },
+    "AccuracyFolder": {
+      "title": "Accuracy Folder",
+      "description": "A category for accuracy data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    }
+  },
+  "firestore": {
+    "/programs/{programId}": {
+      "schema": "Program",
+      "description": "Collection of audit programs"
+    },
+    "/accuracyData/{itemId}": {
+      "schema": "AccuracyItem",
+      "description": "Collection of project accuracy data"
+    },
+    "/accuracyFolders/{folderId}": {
+      "schema": "AccuracyFolder",
+      "description": "Collection of accuracy folders"
+    }
+  }
+}
